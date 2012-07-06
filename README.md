@@ -25,17 +25,23 @@ OAuth2 is simpler than its first version. In order to get the access token, you 
 
     WeiboOAuth2::Config.api_key = YOUR_KEY
     WeiboOAuth2::Config.api_secret = YOUR_SECRET
-    WeiboOAuth2::Config.redirect_uri = YOUR_CALLBACK_URL   #if you are developing in your localhost, you can set YOUR_CALLBACK_URL as 'http://127.0.0.1/callback' something. Then set your weibo app account's callback URL as this URL too. Weibo will call the URL using GET method, which will then enable you to retrieve the authorization code.
+    WeiboOAuth2::Config.redirect_uri = YOUR_CALLBACK_URL   #if you are developing in your localhost, you can set 
+                                                           #YOUR_CALLBACK_URL as 'http://127.0.0.1/callback' something. 
+                                                           #Then set your weibo app account's callback URL as this URL too. 
+                                                           #Weibo will call the URL using GET method, which will then enable you 
+                                                           #to retrieve the authorization code.
     
-    client = WeiboOAuth2::Client.new  # Or you can pass the key and secret to new a client if you did not set WeiboOAuth2::Config
+    client = WeiboOAuth2::Client.new  # Or you can pass the key and secret to 
+                                      # new a client if you did not set WeiboOAuth2::Config
     
     # Redirect to this URL. If user grants you permission, then you will get the authorization code.
     client.authorize_url
     
-    # In your callback handling method, you should add something like the following, which will give permission to your client.
+    # In your callback handling method, you should add something like the following, 
+    # which will give permission to your client.
     client.auth_code.get_token(params[:code])
     
-2. How to post a status with picture? (or call other interfaces)
+2.  How to post a status with picture? (or call other interfaces)
   
     # Simply update a status
     client.statuses.update(params[:status])
