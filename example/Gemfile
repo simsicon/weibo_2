@@ -3,4 +3,4 @@ source :rubygems
 gem 'sinatra'
 gem "haml"
 gem "sass"
-gem 'weibo_2', :path => '../'
+gem 'weibo_2'

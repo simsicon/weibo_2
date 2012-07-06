@@ -5,7 +5,11 @@ Bundler.setup
 %w(sinatra haml sass).each { |dependency| require dependency }
 enable :sessions
 
-client = WeiboOAuth2::Client.new('1317413087', '79c39d8c66a93bd15f16ed0e999532f9')
+WeiboOAuth2::Config.api_key = ENV['KEY']
+WeiboOAuth2::Config.api_secret = ENV['SECRET']
+WeiboOAuth2::Config.redirect_uri = ENV['REDIR_URI']
+
+client = WeiboOAuth2::Client.new
 
 get '/' do
   if session[:access_token] && !client.authorized?
@@ -18,13 +22,11 @@ get '/' do
 end
 
 get '/connect' do
-  
-  url = client.authorize_url(:redirect_uri => 'http://127.0.0.1:4567/callback')
-  redirect url
+  redirect client.authorize_url
 end
 
 get '/callback' do
-  access_token = client.auth_code.get_token(params[:code].to_s, :redirect_uri => 'http://127.0.0.1:4567/callback')
+  access_token = client.auth_code.get_token(params[:code].to_s)
   session[:uid] = access_token.params["uid"]
   session[:access_token] = access_token.token
   session[:expires_at] = access_token.expires_at

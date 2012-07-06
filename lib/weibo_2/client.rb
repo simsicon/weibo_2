@@ -3,7 +3,9 @@ require 'oauth2'
 module WeiboOAuth2
   class Client < OAuth2::Client
  
-    def initialize(client_id, client_secret, opts={}, &block)
+    def initialize(client_id='', client_secret='', opts={}, &block)
+      client_id = WeiboOAuth2::Config.api_key if client_id.empty?
+      client_secret = WeiboOAuth2::Config.api_secret if client_secret.empty?
       super
       @site = "https://api.weibo.com/2/"
       @options[:authorize_url] = '/oauth2/authorize'
@@ -13,6 +15,7 @@ module WeiboOAuth2
     def authorize_url(params=nil)
       params[:client_id] = @id unless params[:client_id]
       params[:response_type] = 'code' unless params[:response_type]
+      params[:redirect_uri] = WeiboOAuth2::Config.redirect_uri unless params[:redirect_uri]
       super
     end
     
