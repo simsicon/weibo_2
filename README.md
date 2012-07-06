@@ -22,32 +22,35 @@ The example written with sinatra in this directory shows how to ask for oauth2 p
 
 1.  How to get the token?
 
-OAuth2 is simpler than its first version. In order to get the access token, you first need to get an Authorization Code through a callback request. Now use the following code to get the token.
+    OAuth2 is simpler than its first version. In order to get the access token, you first need to get an Authorization Code through a callback request. Now use the following code to get the token.
 
-    WeiboOAuth2::Config.api_key = YOUR_KEY
-    WeiboOAuth2::Config.api_secret = YOUR_SECRET
-    WeiboOAuth2::Config.redirect_uri = YOUR_CALLBACK_URL   #If you are developing in your localhost, you can set 
-                                                           #YOUR_CALLBACK_URL as 'http://127.0.0.1/callback' something. 
-                                                           #Then set your weibo app account's callback URL as this URL too. 
-                                                           #Weibo will call the URL using GET method, which will then enable you 
-                                                           #to retrieve the authorization code.
+        WeiboOAuth2::Config.api_key = YOUR_KEY
+        WeiboOAuth2::Config.api_secret = YOUR_SECRET
+        WeiboOAuth2::Config.redirect_uri = YOUR_CALLBACK_URL   
+
+    If you are developing in your localhost, you can set YOUR_CALLBACK_URL as 'http://127.0.0.1/callback' something. Then set your weibo app account's callback URL as this URL too. Weibo will call the URL using GET method, which will then enable you to retrieve the authorization code.
     
-    client = WeiboOAuth2::Client.new  # Or you can pass the key and secret to 
-                                      # new a client if you did not set WeiboOAuth2::Config
+        client = WeiboOAuth2::Client.new  
     
-    # Redirect to this URL. If user grants you permission, then you will get the authorization code.
-    client.authorize_url
+    Or you can pass the key and secret to new a client if you did not set WeiboOAuth2::Config
     
-    # In your callback handling method, you should add something like the following, 
-    # which will give permission to your client.
-    client.auth_code.get_token(params[:code])
+    Redirect to this URL. If user grants you permission, then you will get the authorization code.
+    
+        client.authorize_url
+    
+    In your callback handling method, you should add something like the following, 
+        client.auth_code.get_token(params[:code])
+    
+    which will give permission to your client.
     
 2.  How to post a status with picture? (or call other interfaces)
-
-Simply update a status
-    client.statuses.update(params[:status])
     
-Upload a picture
-    tmpfile = params[:file][:tempfile]
-    pic = File.open(tmpfile.path)
-    client.statuses.upload(params[:status], pic)
+    Simply update a status
+        
+        client.statuses.update(params[:status])
+    
+    Upload a picture
+        
+        tmpfile = params[:file][:tempfile]
+        pic = File.open(tmpfile.path)
+        client.statuses.upload(params[:status], pic)
