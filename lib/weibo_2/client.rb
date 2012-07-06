@@ -12,7 +12,7 @@ module WeiboOAuth2
       @options[:token_url] = '/oauth2/access_token'
     end
     
-    def authorize_url(params=nil)
+    def authorize_url(params={})
       params[:client_id] = @id unless params[:client_id]
       params[:response_type] = 'code' unless params[:response_type]
       params[:redirect_uri] = WeiboOAuth2::Config.redirect_uri unless params[:redirect_uri]
