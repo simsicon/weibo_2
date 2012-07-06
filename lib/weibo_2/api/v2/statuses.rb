@@ -28,12 +28,12 @@ module WeiboOAuth2
           hashie get("statuses/user_timeline/ids.json", :params => opt)
         end
         
-        def repost_timeline(opt={})
-          hashie get("statuses/repost_timeline.json", :params => opt)
+        def repost_timeline(id, opt={})
+          hashie get("statuses/repost_timeline.json", :params => {:id => id}.merge(opt))
         end
         
-        def repost_timeline_ids(opt={})
-          hashie get("statuses/repost_timeline/ids.json", :params => opt)
+        def repost_timeline_ids(id, opt={})
+          hashie get("statuses/repost_timeline/ids.json", :params => {:id => id}.merge(opt))
         end
         
         def repost_by_me(opt={})
