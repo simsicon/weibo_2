@@ -19,13 +19,14 @@ WeioOAuth2 is a Ruby gem that provides a wrapper for interacting with sina weibo
 
 The example written with sinatra in this directory shows how to ask for oauth2 permission, get the token and send status with picture. It should cover basic usage in all ruby apps. You can visit http://weibo-oauth2-example.herokuapp.com/ to see the demo.
 
+
 1.  How to get the token?
 
 OAuth2 is simpler than its first version. In order to get the access token, you first need to get an Authorization Code through a callback request. Now use the following code to get the token.
 
     WeiboOAuth2::Config.api_key = YOUR_KEY
     WeiboOAuth2::Config.api_secret = YOUR_SECRET
-    WeiboOAuth2::Config.redirect_uri = YOUR_CALLBACK_URL   #if you are developing in your localhost, you can set 
+    WeiboOAuth2::Config.redirect_uri = YOUR_CALLBACK_URL   #If you are developing in your localhost, you can set 
                                                            #YOUR_CALLBACK_URL as 'http://127.0.0.1/callback' something. 
                                                            #Then set your weibo app account's callback URL as this URL too. 
                                                            #Weibo will call the URL using GET method, which will then enable you 
@@ -42,17 +43,11 @@ OAuth2 is simpler than its first version. In order to get the access token, you 
     client.auth_code.get_token(params[:code])
     
 2.  How to post a status with picture? (or call other interfaces)
-  
-    # Simply update a status
+
+Simply update a status
     client.statuses.update(params[:status])
     
-    # Upload a picture
+Upload a picture
     tmpfile = params[:file][:tempfile]
     pic = File.open(tmpfile.path)
     client.statuses.upload(params[:status], pic)
-    
-    
-
-
-
-
