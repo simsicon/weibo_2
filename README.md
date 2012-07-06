@@ -17,7 +17,7 @@ WeioOAuth2 is a Ruby gem that provides a wrapper for interacting with sina weibo
 
 ## Basic Usage
 
-The example written with sinatra in this directory shows how to ask for oauth2 permission, get the token and send status with picture. It should cover basic usage in all ruby apps.
+The example written with sinatra in this directory shows how to ask for oauth2 permission, get the token and send status with picture. It should cover basic usage in all ruby apps. You can visit http://weibo-oauth2-example.herokuapp.com/ to see the demo.
 
 1.  How to get the token?
 
