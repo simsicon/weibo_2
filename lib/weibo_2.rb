@@ -1,4 +1,5 @@
 require "weibo_2/version"
+require "weibo_2/config"
 require "weibo_2/base"
 require "weibo_2/client"
 require "weibo_2/api/v2/base.rb"
