@@ -24,9 +24,9 @@ The example written with sinatra in this directory shows how to ask for oauth2 p
 
 update: Sorry, the api key I used for this demo is still in the process of auditing by weibo side, it's not available now for connecting. But you can apply your own api key, clone the example in this directory, then type
 
-    ```bash
-    $ KEY=change_this_to_your_key SECRET=change_this_to_your_secret REDIR_URI=change_this_to_your_redir_uri ruby example.rb
-    ```
+```bash
+$ KEY=change_this_to_your_key SECRET=change_this_to_your_secret REDIR_URI=change_this_to_your_redir_uri ruby example.rb
+```
 It should work.
 
 
