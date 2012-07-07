@@ -13,9 +13,17 @@ WeiboOAuth2::Config.redirect_uri = ENV['REDIR_URI']
 client = WeiboOAuth2::Client.new
 
 get '/' do
-  puts WeiboOAuth2::Config.redirect_uri
+  puts '* ' * 80
+  puts session.inspect
+  puts !client.authorized?
   if session[:access_token] && !client.authorized?
-    client.get_token_from_hash({:access_token => session[:access_token], :expires_at => session[:expires_at]}) 
+    token = client.get_token_from_hash({:access_token => session[:access_token], :expires_at => session[:expires_at]}) 
+    puts token.inspect
+    if token.expired?
+      reset_session
+      redirect 'connect'
+      return
+    end
   end
   if session[:uid]
     @user = client.users.show_by_uid(session[:uid]) 
@@ -38,9 +46,7 @@ get '/callback' do
 end
 
 get '/logout' do
-  session[:uid] = nil
-  session[:access_token] = nil
-  session[:expires_at] = nil
+  reset_session
   redirect '/'
 end 
 
@@ -60,4 +66,12 @@ post '/update' do
   end
 
   redirect '/'
+end
+
+helpers do 
+  def reset_session
+    session[:uid] = nil
+    session[:access_token] = nil
+    session[:expires_at] = nil
+  end
 end

@@ -35,7 +35,7 @@ module WeiboOAuth2
               :header_format => "OAuth2 %s",
               :param_name => "access_token"}
 
-      @access_token = OAuth2::AccessToken.new(self, access_token, opts)
+      @access_token = WeiboOAuth2::AccessToken.new(self, access_token, opts)
     end
     
     def authorized?
