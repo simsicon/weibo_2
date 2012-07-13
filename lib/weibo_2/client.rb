@@ -82,6 +82,10 @@ module WeiboOAuth2
       @search ||= WeiboOAuth2::Api::V2::Search.new(@access_token) if @access_token      
     end
     
+    def short_url
+      @short_url ||= WeiboOAuth2::Api::V2::ShortUrl.new(@access_token) if @access_token      
+    end
+    
     def suggestions
       @suggestions ||= WeiboOAuth2::Api::V2::Suggestions.new(@access_token) if @access_token      
     end
