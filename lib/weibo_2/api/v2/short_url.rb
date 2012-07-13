@@ -11,20 +11,16 @@ module WeiboOAuth2
           hashie get("short_url/expand.json", :params => {:url_short => url_short}.merge(opt))
         end
         
-        def expand(url_short, opt={})
-          hashie get("short_url/expand.json", :params => {:url_short => url_short}.merge(opt))
-        end
-        
         def clicks(url_short, opt={})
-          hashie get("short_url/expand.json", :params => {:url_short => url_short}.merge(opt))
+          hashie get("short_url/clicks.json", :params => {:url_short => url_short}.merge(opt))
         end
         
         def referers(url_short, opt={})
-          hashie get("short_url/expand.json", :params => {:url_short => url_short}.merge(opt))
+          hashie get("short_url/referers.json", :params => {:url_short => url_short}.merge(opt))
         end
         
         def locations(url_short, opt={})
-          hashie get("short_url/expand.json", :params => {:url_short => url_short}.merge(opt))
+          hashie get("short_url/locations.json", :params => {:url_short => url_short}.merge(opt))
         end
         
         def share_counts(url_short, opt={})
