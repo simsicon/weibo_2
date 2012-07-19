@@ -19,7 +19,7 @@ get '/' do
   if session[:access_token] && !client.authorized?
     token = client.get_token_from_hash({:access_token => session[:access_token], :expires_at => session[:expires_at]}) 
     puts token.inspect
-    if token.validated?
+    unless token.validated?
       reset_session
       redirect 'connect'
       return
