@@ -16,8 +16,10 @@ get '/' do
   client = WeiboOAuth2::Client.new
   if session[:access_token] && !client.authorized?
     token = client.get_token_from_hash({:access_token => session[:access_token], :expires_at => session[:expires_at]}) 
+    p "*" * 80 + "validated"
     p token.inspect
     p token.validated?
+    
     unless token.validated?
       reset_session
       redirect '/connect'
@@ -42,6 +44,8 @@ get '/callback' do
   session[:uid] = access_token.params["uid"]
   session[:access_token] = access_token.token
   session[:expires_at] = access_token.expires_at
+  p "*" * 80 + "callback"
+  p access_token.inspect
   @user = client.users.show_by_uid(session[:uid].to_i)
   redirect '/'
 end

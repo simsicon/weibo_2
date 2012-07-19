@@ -15,7 +15,7 @@ module WeiboOAuth2
     #Convert Time from a time zone to another time zone
     #'+08:00' or '-08:00'
     #return Time
-    def self.senetime_convertion(time, time_zone)
+    def self.time_convertion(time, time_zone)
         t = time.utc
         Time.new(t.year, t.month, t.day, t.hour, t.min, t.sec, time_zone)
     end  
