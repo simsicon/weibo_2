@@ -2,20 +2,13 @@ module WeiboOAuth2
   class AccessToken < OAuth2::AccessToken
     
     def validated?
-      !!@expires_at && !expired?
+      !!@expires_at && !WeiboOAuth2::AccessToken.expired?
     end
 
-
-
-    def class << self
-      # Whether or not the token is expired
-      #
-      # @return [Boolean]
-      def expired?
-        puts expires_at
-        puts time_convertion(Time.now, '+08:00').to_i
-        expires? && (expires_at < time_convertion(Time.now, '+08:00').to_i)
-      end
+    def self.expired?
+      puts expires_at
+      puts time_convertion(Time.now, '+08:00').to_i
+      expires? && (expires_at < time_convertion(Time.now, '+08:00').to_i)
     end
     
 
