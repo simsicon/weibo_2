@@ -7,15 +7,17 @@ module WeiboOAuth2
 
 
 
-
-    # Whether or not the token is expired
-    #
-    # @return [Boolean]
-    def self.expired?
-      puts expires_at
-      puts time_convertion(Time.now, '+08:00').to_i
-      expires? && (expires_at < time_convertion(Time.now, '+08:00').to_i)
+    def class << self
+      # Whether or not the token is expired
+      #
+      # @return [Boolean]
+      def expired?
+        puts expires_at
+        puts time_convertion(Time.now, '+08:00').to_i
+        expires? && (expires_at < time_convertion(Time.now, '+08:00').to_i)
+      end
     end
+    
 
     #Convert Time from a time zone to another time zone
     #'+08:00' or '-08:00'
