@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "weibo_2"
   gem.require_paths = ["lib"]
-  gem.version       = WeiboOAuth2::VERSION
+  gem.version       = WeiboOAuth2::Version
   
   gem.add_development_dependency "rspec", "~> 2.6"
   
