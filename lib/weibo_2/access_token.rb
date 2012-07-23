@@ -8,7 +8,7 @@ module WeiboOAuth2
     def expired?
       puts "expired? time time_convertion"
       puts time_convertion(Time.now, '+08:00').to_i
-      expires? && (expires_at < time_convertion(Time.now, '+08:00').to_i)
+      expires? && (expires_at < self.time_convertion(Time.now, '+08:00').to_i)
     end
     
 
@@ -16,8 +16,7 @@ module WeiboOAuth2
     #'+08:00' or '-08:00'
     #return Time
     def self.time_convertion(time, time_zone)
-      t = time.utc
-      Time.new(t.year, t.month, t.day, t.hour, t.min, t.sec, time_zone)
+      time.getutc.getlocal(time_zone)
     end  
   end
 end
