@@ -6,8 +6,6 @@ module WeiboOAuth2
     end
 
     def expired?
-      puts "expired? time time_convertion"
-      puts time_convertion(Time.now, '+08:00').to_i
       expires? && (expires_at < self.time_convertion(Time.now, '+08:00').to_i)
     end
     
