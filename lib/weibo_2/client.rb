@@ -30,8 +30,8 @@ module WeiboOAuth2
     end
     
     def get_token_from_hash(hash)
-      access_token = hash.delete('access_token') || hash.delete(:access_token)
-      opts = {:expires_at => (hash.delete('expires_at') || hash.delete(:expires_at)),
+      access_token = hash.delete(:access_token) || hash.delete('access_token')
+      opts = {:expires_at => (hash.delete(:expires_at) || hash.delete('expires_at')),
               :header_format => "OAuth2 %s",
               :param_name => "access_token"}
 
