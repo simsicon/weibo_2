@@ -104,6 +104,7 @@ It should work.
 ## Integrate with Devise and omniauth
 
     In devise initailize file config/initiallizers/devise.rb, add a line into setup block, please replace key and secret with yours.
+
     ```ruby
         config.omniauth :weibo, 'key', 'secret', :scope => 'user,public_repo'
     ```
@@ -112,6 +113,7 @@ It should work.
 
     After get the callback data, you can see `env['omniauth.auth']['credentials']` has the value `token` and `expires_at`, store them into session or record,
     Now you can WeiboOAuth2 in any where:
+
     ```ruby
        client = WeiboOAuth2::Client.new
        client.get_token_from_hash({:access_token=>session[:token],:expires_at=>session[:expires_at]})
