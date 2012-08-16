@@ -18,3 +18,19 @@ require "weibo_2/api/v2/short_url"
 require "weibo_2/api/v2/suggestions"
 require "weibo_2/api/v2/remind"
 require "weibo_2/strategy/auth_code"
+
+
+if defined?(Rails)
+  module WeiboOAuth2
+    class Railtie < Rails::Railtie
+      initializer "weibo_oauth2" do
+        ActiveSupport.on_load :action_controller do
+          if Object.const_defined?("Devise") && Devise.omniauth_configs[:weibo]
+            WeiboOAuth2::Config.api_key = Devise.omniauth_configs[:weibo].strategy.client_id
+            WeiboOAuth2::Config.api_secret = Devise.omniauth_configs[:weibo].strategy.client_secret
+          end
+        end
+      end
+    end
+  end
+end

@@ -101,5 +101,31 @@ It should work.
 
     For Fedora and CentOS, use the path and file `/etc/pki/tls/certs/ca-bundle.crt` instead, or find your system path with `openssl version -a`.
 
+## Integrate with Devise and omniauth
 
+1. Install gems in Gemfile
+   
+   ```ruby
+   	 gem 'devise'
+   	 gem 'omniauth'
+	 gem 'omniauth-weibo-oauth2'
+	 gem 'weibo_2'
+   ```
+
+
+2. In devise initailize file config/initiallizers/devise.rb, add a line into setup block, please replace key and secret with yours.
+
+   ```ruby
+     config.omniauth :weibo, 'key', 'secret', :scope => 'user,public_repo'
+   ```
         
+3. Then you should handle omini callback controller by yourself, there is sample project show how to integrate devise and omniauth you can follow [devise-omniauth-example](https://github.com/holden/devise-omniauth-example) 
+
+4. After get the callback data, you will see `env['omniauth.auth']['credentials']` has the value `token` and `expires_at`, store them into session or record,now you can use WeiboOAuth2 in anywhere:
+
+   ```ruby
+     client = WeiboOAuth2::Client.new
+     client.get_token_from_hash({:access_token=>session[:token],:expires_at=>session[:expires_at]})
+     statuses = client.statuses
+     statuses.update('just test from my app')
+   ```
