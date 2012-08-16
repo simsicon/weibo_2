@@ -103,20 +103,29 @@ It should work.
 
 ## Integrate with Devise and omniauth
 
-    In devise initailize file config/initiallizers/devise.rb, add a line into setup block, please replace key and secret with yours.
+   Install gems in Gemfile
+   
+   ```ruby
+   	 gem 'devise'
+   	 gem 'omniauth'
+	 gem 'omniauth-weibo-oauth2'
+	 gem 'weibo_2'
+   ```
 
-    ```ruby
-        config.omniauth :weibo, 'key', 'secret', :scope => 'user,public_repo'
-    ```
+
+   In devise initailize file config/initiallizers/devise.rb, add a line into setup block, please replace key and secret with yours.
+
+   ```ruby
+       config.omniauth :weibo, 'key', 'secret', :scope => 'user,public_repo'
+   ```
         
-    Then you should handle omini callback controller by yourself, there is sample project you can follow https://github.com/holden/devise-omniauth-example 
+  Then you should handle omini callback controller by yourself, there is sample project show how to integrate devise and omniauth you can follow [devise-omniauth-example](https://github.com/holden/devise-omniauth-example) 
 
-    After get the callback data, you can see `env['omniauth.auth']['credentials']` has the value `token` and `expires_at`, store them into session or record,
-    Now you can WeiboOAuth2 in any where:
+  After get the callback data, you can see `env['omniauth.auth']['credentials']` has the value `token` and `expires_at`, store them into session or record,now you can WeiboOAuth2 in any where:
 
-    ```ruby
+   ```ruby
        client = WeiboOAuth2::Client.new
        client.get_token_from_hash({:access_token=>session[:token],:expires_at=>session[:expires_at]})
        statuses = client.statuses
        statuses.update('just test from my app')
-    ```
+   ```
