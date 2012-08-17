@@ -4,9 +4,10 @@ require File.expand_path('../lib/weibo_2/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["simsicon"]
   gem.email         = ["simsicon@gmail.com"]
-  gem.description   = "A oauth2 gem for weibo"
+  gem.description   = %q{WeioOAuth2 is a Ruby gem that provides a wrapper for interacting with sina weibo's v2 API, 
+                         which is currently the latest version. The output data format is Hashie::Mash}
   gem.summary       = "A oauth2 gem for weibo"
-  gem.homepage      = ""
+  gem.homepage      = "http://github.com/simsicon/weibo_2"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
