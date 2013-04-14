@@ -97,6 +97,14 @@ module WeiboOAuth2
     def auth_code
       @auth_code ||= WeiboOAuth2::Strategy::AuthCode.new(self)
     end
+
+    def place
+      @place ||= WeiboOAuth2::Api::V2::Place.new(@access_token) if @access_token
+    end
+
+    def location
+      @location ||= WeiboOAuth2::Api::V2::Location.new(@access_token) if @access_token
+    end
     
   end 
 end
