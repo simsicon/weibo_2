@@ -12,6 +12,13 @@ module WeiboOAuth2
       @options[:token_url] = '/oauth2/access_token'
     end
     
+    def self.from_hash(hash, opts={}, &block)
+      client = self.new(opts, &block)
+      client.get_token_from_hash(hash)
+
+      client
+    end
+
     def authorize_url(params={})
       params[:client_id] = @id unless params[:client_id]
       params[:response_type] = 'code' unless params[:response_type]
