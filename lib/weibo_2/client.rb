@@ -31,15 +31,11 @@ module WeiboOAuth2
     
     def get_token_from_hash(hash)
       access_token = hash.delete(:access_token) || hash.delete('access_token')
-      opts = {:expires_at => (hash.delete(:expires_at) || hash.delete('expires_at')),
-              :header_format => "OAuth2 %s",
-              :param_name => "access_token"}
-
-      @access_token = WeiboOAuth2::AccessToken.new(self, access_token, opts)
+      @access_token = WeiboOAuth2::AccessToken.new( self, access_token, hash.merge(:header_format => 'OAuth2 %s', :param_name => 'access_token') )
     end
     
     def authorized?
-      !!@access_token
+      @access_token && @access_token.validated?
     end
     
     def users
