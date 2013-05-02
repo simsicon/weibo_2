@@ -17,7 +17,7 @@ module WeiboOAuth2
         end
         
         def hashie(response)
-          json_body = JSON.parse(response.body)
+          json_body = MultiJson.load(response.body)
           if json_body.is_a? Array
             Array.new(json_body.count){|i| Hashie::Mash.new(json_body[i])}
           else
@@ -28,9 +28,9 @@ module WeiboOAuth2
         protected
         def self.mime_type(file)
           case
-            when file =~ /\.jpg/ then 'image/jpg'
-            when file =~ /\.gif$/ then 'image/gif'
-            when file =~ /\.png$/ then 'image/png'
+            when file =~ /\.jpg$/i then 'image/jpg'
+            when file =~ /\.gif$/i then 'image/gif'
+            when file =~ /\.png$/i then 'image/png'
             else 'application/octet-stream'
           end
         end
