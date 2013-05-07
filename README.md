@@ -73,8 +73,8 @@ It should work.
     Upload a picture.
         
     ```ruby
-    tmpfile = params[:file].delete(:tempfile)
-    File.open(tmpfile.path, 'rb'){|pic| client.statuses.upload(params[:status], pic, params[:file])}
+    pic = params[:file].delete(:tempfile)
+    client.statuses.upload(params[:status], pic, params[:file])
     ```
 
     pass params[:file] into upload method as options could help weibo_2 to build post body, useful options as:
