@@ -45,7 +45,7 @@ module WeiboOAuth2
             if value.respond_to?(:read)
               body << "Content-Disposition: form-data; name=\"#{esc_key}\"; filename=\"#{File.basename(value.path)}\"#{CRLF}"
               body << "Content-Type: #{mime_type(value.path)}#{CRLF*2}"
-              body << value.read
+              body << File.open(value.path, 'rb'){|f| f.read }
             else
               body << "Content-Disposition: form-data; name=\"#{esc_key}\"#{CRLF*2}#{value}"
             end
