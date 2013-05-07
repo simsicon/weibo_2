@@ -80,6 +80,7 @@ It should work.
     pass params[:file] into upload method as options could help weibo_2 to build post body, useful options as:
     *   filename, filename with extension of the uploading file, example 'pic.jpg'
     *   type, mime type of the uploading file, example 'image/jpeg'
+    
 ## Setting up SSL certificates
     
     This gem using [faraday](https://github.com/technoweenie/faraday) for connection, which supports ssl. According to [this article](https://github.com/technoweenie/faraday/wiki/Setting-up-SSL-certificates), you can do as following to support ssl connection.
