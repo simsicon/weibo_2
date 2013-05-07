@@ -34,24 +34,29 @@ module WeiboOAuth2
             else 'application/octet-stream'
           end
         end
+
+        def self.bin_encode(chunk)
+          chunk.force_encoding(Encoding::BINARY) if chunk.respond_to? :force_encoding
+        end
         
         CRLF = "\r\n"
         def self.build_multipart_bodies(parts)
           boundary = Time.now.to_i.to_s(16)
-          body = ""
+          body = bin_encode("")
           parts.each do |key, value|
             esc_key = CGI.escape(key.to_s)
-            body << "--#{boundary}#{CRLF}"
+            body << bin_encode("--#{boundary}#{CRLF}")
             if value.respond_to?(:read)
-              body << "Content-Disposition: form-data; name=\"#{esc_key}\"; filename=\"#{File.basename(value.path)}\"#{CRLF}"
-              body << "Content-Type: #{mime_type(value.path)}#{CRLF*2}"
-              body << File.open(value.path, 'rb'){|f| f.read }
+              body << bin_encode("Content-Disposition: form-data; name=\"#{esc_key}\"; filename=\"#{File.basename(value.path)}\"#{CRLF}")
+              body << bin_encode("Content-Type: #{mime_type(value.path)}#{CRLF*2}")
+              body << bin_encode(value.read)
             else
-              body << "Content-Disposition: form-data; name=\"#{esc_key}\"#{CRLF*2}#{value}"
+              body << bin_encode("Content-Disposition: form-data; name=\"#{esc_key}\"#{CRLF*2}#{value}")
             end
-            body << CRLF
+            body << bin_encode(CRLF)
           end
-          body << "--#{boundary}--#{CRLF*2}"
+          body << bin_encode("--#{boundary}--#{CRLF*2}")
+          
           {
             :body => body,
             :headers => {"Content-Type" => "multipart/form-data; boundary=#{boundary}"}
