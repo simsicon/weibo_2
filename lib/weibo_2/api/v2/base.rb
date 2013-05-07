@@ -26,38 +26,45 @@ module WeiboOAuth2
         end
         
         protected
-        def self.mime_type(file)
+        def mime_type(file)
           case
             when file =~ /\.jpeg$/i then 'image/jpeg'
             when file =~ /\.jpg$/i then 'image/jpeg'
             when file =~ /\.gif$/i then 'image/gif'
             when file =~ /\.png$/i then 'image/png'
             when file =~ /\.tiff$/i then 'image/tiff'
-            else 'application/octet-stream'
+            else 'image/jpeg'
           end
         end
 
-        def self.bin_encode(chunk)
+        def bin_encode(chunk)
           chunk.force_encoding(Encoding::BINARY) if chunk.respond_to? :force_encoding
         end
         
         CRLF = "\r\n"
-        def self.build_multipart_bodies(parts)
+        def build_multipart_bodies(parts, opts)
           boundary = Time.now.to_i.to_s(16)
-          body = bin_encode("")
+
+          body = bin_encode('')
+
           parts.each do |key, value|
             esc_key = CGI.escape(key.to_s)
             body << bin_encode("--#{boundary}#{CRLF}")
             if value.respond_to?(:read)
-              body << bin_encode("Content-Disposition: form-data; name=\"#{esc_key}\"; filename=\"#{File.basename(value.path)}\"#{CRLF}")
-              body << bin_encode("Content-Type: #{mime_type(value.path)}#{CRLF*2}")
-              body << bin_encode("Content-Transfer-Encoding: binary")
+              filename = opts.delete(:filename) || File.basename(value.path)
+              mime_type = opts.delete(:type) || mime_type(value.path)
+
+              body << bin_encode("Content-Disposition: form-data; name=\"#{esc_key}\"; filename=\"#{filename}\"#{CRLF}")
+              body << bin_encode("Content-Type: #{mime_type}#{CRLF*2}")
               body << bin_encode(value.read)
             else
               body << bin_encode("Content-Disposition: form-data; name=\"#{esc_key}\"#{CRLF*2}#{value}")
             end
+            body << bin_encode("Content-Transfer-Encoding: binary")
             body << bin_encode(CRLF)
-          end
+
+          end 
+
           body << bin_encode("--#{boundary}--#{CRLF*2}")
 
           {

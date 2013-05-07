@@ -98,7 +98,7 @@ module WeiboOAuth2
         end
         
         def pois_add_photo(poiid, status, pic, opt={})
-          multipart = Base.build_multipart_bodies({"poiid" => poiid, "status" => status, "pic" => pic}.merge(opt))
+          multipart = build_multipart_bodies({"poiid" => poiid, "status" => status, "pic" => pic}, opt)
           hashie post("place/pois/add_photo.json", :headers => multipart[:headers], :body => multipart[:body])
         end
         

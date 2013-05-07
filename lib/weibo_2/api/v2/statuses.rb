@@ -99,7 +99,7 @@ module WeiboOAuth2
         
   
         def upload(status, pic, opt={})
-          multipart = Base.build_multipart_bodies({"status" => status, "pic" => pic}.merge(opt))
+          multipart = build_multipart_bodies({"status" => status, "pic" => pic}, opt)
           hashie post("statuses/upload.json", :headers => multipart[:headers], :body => multipart[:body])
         end
         
