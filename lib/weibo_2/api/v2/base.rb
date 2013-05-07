@@ -28,9 +28,11 @@ module WeiboOAuth2
         protected
         def self.mime_type(file)
           case
-            when file =~ /\.jpg$/i then 'image/jpg'
+            when file =~ /\.jpeg$/i then 'image/jpeg'
+            when file =~ /\.jpg$/i then 'image/jpeg'
             when file =~ /\.gif$/i then 'image/gif'
             when file =~ /\.png$/i then 'image/png'
+            when file =~ /\.tiff$/i then 'image/tiff'
             else 'application/octet-stream'
           end
         end
