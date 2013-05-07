@@ -49,6 +49,7 @@ module WeiboOAuth2
             if value.respond_to?(:read)
               body << bin_encode("Content-Disposition: form-data; name=\"#{esc_key}\"; filename=\"#{File.basename(value.path)}\"#{CRLF}")
               body << bin_encode("Content-Type: #{mime_type(value.path)}#{CRLF*2}")
+              body << bin_encode("Content-Transfer-Encoding: binary")
               body << bin_encode(value.read)
             else
               body << bin_encode("Content-Disposition: form-data; name=\"#{esc_key}\"#{CRLF*2}#{value}")
@@ -56,7 +57,7 @@ module WeiboOAuth2
             body << bin_encode(CRLF)
           end
           body << bin_encode("--#{boundary}--#{CRLF*2}")
-          
+
           {
             :body => body,
             :headers => {"Content-Type" => "multipart/form-data; boundary=#{boundary}"}
