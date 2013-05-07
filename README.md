@@ -2,7 +2,7 @@ Note: I got a lot of inspiration from [this gem](https://github.com/ballantyne/w
 
 # WeiboOAuth2
 
-WeioOAuth2 is a Ruby gem that provides a wrapper for interacting with sina weibo's v2 [API](http://open.weibo.com/wiki/API%E6%96%87%E6%A1%A3_V2), which is currently the latest version. Check out the link if you are interested in browsing the details. The output data format is Hashie::Mash, check out [here](https://github.com/intridea/hashie#mash). If you are not familiar with oauth2, I recommend that you read this [article](http://open.weibo.com/wiki/Oauth2).
+WeioOAuth2 is a Ruby gem that provides a wrapper for interacting with sina weibo's v2 [API](http://open.weibo.com/wiki/API%E6%96%87%E6%A1%A3_V2), which is currently the latest version. Check out the link if you are interested in browsing the details. The output data format is Hashie::Mash, check out [here](https://github.com/intridea/hashie#mash). If you are not familiar with oauth2, I recommend that you read this [article](http://open.weibo.com/wiki/%E6%8E%88%E6%9D%83%E6%9C%BA%E5%88%B6%E8%AF%B4%E6%98%8E).
 
 ## Requirements
 
@@ -20,9 +20,9 @@ $ gem install weibo_2
 
 ## Basic Usage
 
-The example written with sinatra in this directory shows how to ask for oauth2 permission, get the token and send status with picture. It should cover basic usage in all ruby apps. You can visit http://weibo-oauth2-example.herokuapp.com/ to see the demo.
+The example have been moved to [here](https://github.com/simsicon/weibo_2_example). It wiil be more convenient to update.
 
-update: Sorry, the api key I used for this demo is still in the process of auditing by weibo side, it's not available now for connecting. But you can apply your own api key, clone the example in this directory, then type
+The [example](https://github.com/simsicon/weibo_2_example) written with sinatra in this directory shows how to ask for oauth2 permission, get the token and send status with picture. It should cover basic usage in all ruby apps. You can run your own demo!
 
 ```bash
 $ KEY=change_this_to_your_key SECRET=change_this_to_your_secret REDIR_URI=change_this_to_your_redir_uri ruby example.rb
