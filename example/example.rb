@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'weibo_2'
-require 'time-ago-in-words'
+require 'time_ago_in_words'
 
 %w(rubygems bundler).each { |dependency| require dependency }
 Bundler.setup

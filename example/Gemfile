@@ -1,7 +1,7 @@
-source :rubygems
+source 'https://rubygems.org'
 
-gem 'sinatra'
-gem "haml"
-gem "sass"
-gem 'weibo_2'
-gem 'time-ago-in-words'
+gem 'sinatra', '~> 1.4.2' 
+gem "haml", '~> 4.0.2'
+gem "sass", '~> 3.2.8'
+gem 'weibo_2', '~> 0.1.2'
+gem 'time_ago_in_words', '~> 0.1.0'
