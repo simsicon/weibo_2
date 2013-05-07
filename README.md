@@ -83,27 +83,27 @@ It should work.
     
 ## Setting up SSL certificates
     
-    This gem using [faraday](https://github.com/technoweenie/faraday) for connection, which supports ssl. According to [this article](https://github.com/technoweenie/faraday/wiki/Setting-up-SSL-certificates), you can do as following to support ssl connection.
+This gem using [faraday](https://github.com/technoweenie/faraday) for connection, which supports ssl. According to [this article](https://github.com/technoweenie/faraday/wiki/Setting-up-SSL-certificates), you can do as following to support ssl connection.
 
-    ### Ubuntu
+### Ubuntu
 
-    To locate your SSL certificate folder, type `openssl version -a`. Append `/certs` to the OPENSSLDIR listed, here it would be `/usr/lib/ssl/certs`.
+To locate your SSL certificate folder, type `openssl version -a`. Append `/certs` to the OPENSSLDIR listed, here it would be `/usr/lib/ssl/certs`.
 
-    ```ruby
-        client = WeiboOAuth2::Client.new(YOUR_KEY, YOUR_SECRET, :ssl => {:ca_path => "/usr/lib/ssl/certs"})
-        # or as below if you have set WeiboOAuth2::Config.api_key and WeiboOAuth2::Config.api_secret already
-        # client = WeiboOAuth2::Client.new('', '', :ssl => {:ca_path => "/usr/lib/ssl/certs"})
-    ```
+```ruby
+    client = WeiboOAuth2::Client.new(YOUR_KEY, YOUR_SECRET, :ssl => {:ca_path => "/usr/lib/ssl/certs"})
+    # or as below if you have set WeiboOAuth2::Config.api_key and WeiboOAuth2::Config.api_secret already
+    # client = WeiboOAuth2::Client.new('', '', :ssl => {:ca_path => "/usr/lib/ssl/certs"})
+```
 
-    ### On Heroku, Fedora, CentOS
+### On Heroku, Fedora, CentOS
 
-    ```ruby
-        client = WeiboOAuth2::Client.new(YOUR_KEY, YOUR_SECRET, :ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'})
-        # or as below if you have set WeiboOAuth2::Config.api_key and WeiboOAuth2::Config.api_secret already
-        # client = WeiboOAuth2::Client.new('', '', :ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'})
-    ```
+```ruby
+    client = WeiboOAuth2::Client.new(YOUR_KEY, YOUR_SECRET, :ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'})
+    # or as below if you have set WeiboOAuth2::Config.api_key and WeiboOAuth2::Config.api_secret already
+    # client = WeiboOAuth2::Client.new('', '', :ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'})
+```
 
-    For Fedora and CentOS, use the path and file `/etc/pki/tls/certs/ca-bundle.crt` instead, or find your system path with `openssl version -a`.
+For Fedora and CentOS, use the path and file `/etc/pki/tls/certs/ca-bundle.crt` instead, or find your system path with `openssl version -a`.
 
 ## Integrate with Devise and omniauth
 
