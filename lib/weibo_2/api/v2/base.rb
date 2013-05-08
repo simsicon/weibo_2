@@ -55,12 +55,12 @@ module WeiboOAuth2
               mime_type = opts.delete(:type) || mime_type(value.path)
 
               body << bin_encode("Content-Disposition: form-data; name=\"#{esc_key}\"; filename=\"#{filename}\"#{CRLF}")
-              body << bin_encode("Content-Type: #{mime_type}#{CRLF*2}")
+              body << bin_encode("Content-Type: #{mime_type}#{CRLF}")
+              body << bin_encode("Content-Transfer-Encoding: binary#{CRLF*2}")
               body << bin_encode(value.read)
             else
               body << bin_encode("Content-Disposition: form-data; name=\"#{esc_key}\"#{CRLF*2}#{value}")
             end
-            body << bin_encode("Content-Transfer-Encoding: binary")
             body << bin_encode(CRLF)
 
           end 
