@@ -17,7 +17,7 @@ module WeiboOAuth2
         end
         
         def hashie(response)
-          json_body = MultiJson.load(response.body)
+          json_body = MultiJson.decode(response.body)
           if json_body.is_a? Array
             Array.new(json_body.count){|i| Hashie::Mash.new(json_body[i])}
           else
