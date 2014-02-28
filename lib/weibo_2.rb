@@ -28,8 +28,8 @@ if defined?(Rails)
       initializer "weibo_oauth2" do
         ActiveSupport.on_load :action_controller do
           if Object.const_defined?("Devise") && Devise.omniauth_configs[:weibo]
-            WeiboOAuth2::Config.api_key = Devise.omniauth_configs[:weibo].strategy.client_id
-            WeiboOAuth2::Config.api_secret = Devise.omniauth_configs[:weibo].strategy.client_secret
+            WeiboOAuth2::Config.api_key = Devise.omniauth_configs[:weibo].args[0]
+            WeiboOAuth2::Config.api_secret = Devise.omniauth_configs[:weibo].args[1]
           end
         end
       end
