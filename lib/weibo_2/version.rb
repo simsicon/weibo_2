@@ -1,9 +1,9 @@
 module WeiboOAuth2
-  
+
   class Version
     MAJOR = 0 unless defined? MAJOR
     MINOR = 1 unless defined? MINOR
-    PATCH = 5 unless defined? PATCH
+    PATCH = 6 unless defined? PATCH
     PRE = nil unless defined? PRE
 
     class << self
