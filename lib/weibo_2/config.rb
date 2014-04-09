@@ -6,7 +6,7 @@ module WeiboOAuth2
     end
     
     def self.api_key
-      @@api_key
+      @@api_key ||= nil
     end
     
     def self.api_secret=(val)
@@ -14,7 +14,7 @@ module WeiboOAuth2
     end
     
     def self.api_secret
-      @@api_secret
+      @@api_secret ||= nil
     end
     
     def self.redirect_uri=(val)
@@ -22,7 +22,7 @@ module WeiboOAuth2
     end
     
     def self.redirect_uri
-      @@redirect_uri
+      @@redirect_uri ||= nil
     end
 
   end
