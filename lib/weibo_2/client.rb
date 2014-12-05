@@ -4,7 +4,7 @@ module WeiboOAuth2
   class Client < OAuth2::Client
 
     attr_accessor :access_token
-    
+
     def initialize(client_id='', client_secret='', opts={}, &block)
       client_id = WeiboOAuth2::Config.api_key if client_id.empty?
       client_secret = WeiboOAuth2::Config.api_secret if client_secret.empty?
@@ -26,7 +26,23 @@ module WeiboOAuth2
       client.get_token_from_hash(hash)
 
       client
-    end    
+    end
+
+    def request(verb, url, opts = {})
+      super
+    rescue OAuth2::Error => e
+      error_code = e.response.parsed["error_code"]
+      case error_code
+      when 21315, 21316, 21317, 21327, 21332
+        raise WeiboOAuth2::Errors::UnauthorizedError.new(e.response.parsed)
+      when 10022, 10023, 10024, 20016, 20505
+        raise WeiboOAuth2::Errors::RateLimitedError.new(e.response.parsed)
+      when 10013, 10014, 20508, 21301
+        raise WeiboOAuth2::Errors::PermissionError.new(e.response.parsed)
+      else
+        raise WeiboOAuth2::Errors::GeneralError.new(e.response.parsed)
+      end
+    end
 
     def authorize_url(params={})
       params[:client_id] = @id unless params[:client_id]
@@ -34,78 +50,78 @@ module WeiboOAuth2
       params[:redirect_uri] = WeiboOAuth2::Config.redirect_uri unless params[:redirect_uri]
       super
     end
-    
+
     def get_token(params, access_token_opts={})
       params = params.merge({:parse => :json})
       access_token_opts = access_token_opts.merge({:header_format => "OAuth2 %s", :param_name => "access_token"})
       super
     end
-    
+
     def get_and_restore_token(params, access_token_opts={})
       @access_token = get_token(params, access_token_opts={})
     end
-    
+
     def get_token_from_hash(hash)
       access_token = hash.delete(:access_token) || hash.delete('access_token')
       @access_token = WeiboOAuth2::AccessToken.new( self, access_token, hash.merge(:header_format => 'OAuth2 %s', :param_name => 'access_token') )
     end
-    
+
     def authorized?
       @access_token && @access_token.validated?
     end
-    
+
     def users
       @users ||= WeiboOAuth2::Api::V2::Users.new(@access_token) if @access_token
     end
-    
+
     def statuses
       @statues ||= WeiboOAuth2::Api::V2::Statuses.new(@access_token) if @access_token
     end
-    
+
     def comments
       @comments ||= WeiboOAuth2::Api::V2::Comments.new(@access_token) if @access_token
     end
-    
+
     def friendships
       @friendships ||= WeiboOAuth2::Api::V2::Friendships.new(@access_token) if @access_token
     end
-    
+
     def account
-      @account ||= WeiboOAuth2::Api::V2::Account.new(@access_token) if @access_token      
+      @account ||= WeiboOAuth2::Api::V2::Account.new(@access_token) if @access_token
     end
-    
+
     def favorites
-      @favorites ||= WeiboOAuth2::Api::V2::Favorites.new(@access_token) if @access_token      
+      @favorites ||= WeiboOAuth2::Api::V2::Favorites.new(@access_token) if @access_token
     end
-    
+
     def trends
-      @trends ||= WeiboOAuth2::Api::V2::Trends.new(@access_token) if @access_token      
+      @trends ||= WeiboOAuth2::Api::V2::Trends.new(@access_token) if @access_token
     end
-    
+
     def tags
-      @tags ||= WeiboOAuth2::Api::V2::Tags.new(@access_token) if @access_token      
+      @tags ||= WeiboOAuth2::Api::V2::Tags.new(@access_token) if @access_token
     end
-    
+
     def register
-      @register ||= WeiboOAuth2::Api::V2::Register.new(@access_token) if @access_token      
+      @register ||= WeiboOAuth2::Api::V2::Register.new(@access_token) if @access_token
     end
-    
+
     def search
-      @search ||= WeiboOAuth2::Api::V2::Search.new(@access_token) if @access_token      
+      @search ||= WeiboOAuth2::Api::V2::Search.new(@access_token) if @access_token
     end
-    
+
     def short_url
-      @short_url ||= WeiboOAuth2::Api::V2::ShortUrl.new(@access_token) if @access_token      
+      @short_url ||= WeiboOAuth2::Api::V2::ShortUrl.new(@access_token) if @access_token
     end
-    
+
     def suggestions
-      @suggestions ||= WeiboOAuth2::Api::V2::Suggestions.new(@access_token) if @access_token      
+      @suggestions ||= WeiboOAuth2::Api::V2::Suggestions.new(@access_token) if @access_token
     end
-    
+
     def remind
-      @remind ||= WeiboOAuth2::Api::V2::Remind.new(@access_token) if @access_token      
+      @remind ||= WeiboOAuth2::Api::V2::Remind.new(@access_token) if @access_token
     end
-    
+
     def auth_code
       @auth_code ||= WeiboOAuth2::Strategy::AuthCode.new(self)
     end
@@ -117,6 +133,6 @@ module WeiboOAuth2
     def location
       @location ||= WeiboOAuth2::Api::V2::Location.new(@access_token) if @access_token
     end
-    
-  end 
+
+  end
 end
