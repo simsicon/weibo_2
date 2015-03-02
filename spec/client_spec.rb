@@ -15,23 +15,23 @@ describe WeiboOAuth2::Client do
   end
 
   it 'should get authorize_url' do
-    authorize_url = 'https://api.weibo.com/oauth2/authorize?client_id=abc&response_type=code&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback'
+    authorize_url = 'https://api.weibo.com/oauth2/authorize?client_id=abc&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&response_type=code'
     subject.authorize_url.should == authorize_url
   end
 
   it 'should leave Faraday::Connection#ssl unset' do
-    subject.connection.ssl.should == {}
+    subject.connection.ssl.empty?.should be_truthy
   end
 
   it "defaults raise_errors to true" do
-    subject.options[:raise_errors].should be_true
+    subject.options[:raise_errors].should be_truthy
   end
 
   it "allows true/false for raise_errors option" do
     client = OAuth2::Client.new('abc', 'def', :site => 'https://api.example.com', :raise_errors => false)
-    client.options[:raise_errors].should be_false
+    client.options[:raise_errors].should be_falsey
     client = OAuth2::Client.new('abc', 'def', :site => 'https://api.example.com', :raise_errors => true)
-    client.options[:raise_errors].should be_true
+    client.options[:raise_errors].should be_truthy
   end
 
   it "allows get/post for access_token_method option" do
@@ -40,5 +40,5 @@ describe WeiboOAuth2::Client do
     client = OAuth2::Client.new('abc', 'def', :site => 'https://api.example.com', :access_token_method => :post)
     client.options[:access_token_method].should == :post
   end
-  
+
 end
