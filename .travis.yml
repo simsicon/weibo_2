@@ -12,7 +12,7 @@ rvm:
 
 sudo: false
 
-bundler_args: --without development --retry=3 --jobs=3
+bundler_args: --retry=3 --jobs=3
 
 env:
   global:
