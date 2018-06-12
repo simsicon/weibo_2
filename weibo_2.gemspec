@@ -16,7 +16,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.version       = WeiboOAuth2::Version
   gem.required_ruby_version = '>= 2.3'
-  gem.add_development_dependency 'rspec', '~> 2.6'
 
   gem.add_runtime_dependency 'oauth2', '> 0.9.1'
   gem.add_runtime_dependency 'hashie', '> 2.0.4'
