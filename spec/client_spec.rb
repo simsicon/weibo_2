@@ -1,4 +1,4 @@
-require 'weibo_2'
+require 'helper'
 
 WeiboOAuth2::Config.api_key = 'abc'
 WeiboOAuth2::Config.api_secret = 'def'

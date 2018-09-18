@@ -8,13 +8,9 @@ module WeiboOAuth2
       end
     end
 
-    class GeneralError < WeiboError
-    end
-
-    class RateLimitedError < WeiboError
-    end
-
-    class UnauthorizedError < WeiboError
-    end
+    class GeneralError < WeiboError; end
+    class RateLimitedError < WeiboError; end
+    class UnauthorizedError < WeiboError; end
+    class PermissionError < WeiboError; end
   end
 end

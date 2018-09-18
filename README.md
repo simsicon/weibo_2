@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/jiraffeinc/weibo_2.svg?branch=master)](https://travis-ci.org/jiraffeinc/weibo_2)
+[![Coverage Status](https://coveralls.io/repos/github/jiraffeinc/weibo_2/badge.svg)](https://coveralls.io/github/jiraffeinc/weibo_2)
+
 Note: I got a lot of inspiration from [this gem](https://github.com/ballantyne/weibo) and [this gem](https://github.com/acenqiu/weibo2). The first one will soon be deprecated since weibo is planning to switch to oauth2. The second one has not been fully implemented and is still lacking some features (but a nice try nevertheless). Thanks Scott and acenqiu.
 
 # WeiboOAuth2
